@@ -1,2 +1,2 @@
 # cpe221
-CPE222 projects
+CPE221 projects
