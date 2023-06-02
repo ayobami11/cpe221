@@ -17,7 +17,7 @@ int main()
 {
 
     float grades[] = {82.83, 18.43, 97.73, 76.10, 71.92, 49.81, 52.49, 20.87};
-    const int size = sizeof(grades) / sizeof(float);
+    const int size = sizeof(grades) / sizeof(grades[0]);
 
     cout << "Lowest grade: " << min(grades, size) << endl;
     cout << "Highest grade: " << max(grades, size) << endl;
