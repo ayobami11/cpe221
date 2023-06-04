@@ -1,8 +1,144 @@
 #include <iostream>
-#include <cmath>
-#include <cctype> // contains tolower function
+#include <cstdlib> // for atof function
+#include <cctype>  // for tolower function
+#include <cmath>   // for abs, pow and sqrt functions
+#include <complex> // for complex numbers
 
 using namespace std;
+
+// New version (easier to understand)
+void Get_Coefficients(float *a_ptr, float *b_ptr, float *c_ptr);
+char Calc_Discriminant(float a, float b, float c);
+void Calc_Root(float a, float b, float c);
+
+int main()
+{
+
+    char runProgramAgain = 'y';
+
+    do
+    {
+
+        float a, b, c;
+        float *a_ptr, *b_ptr, *c_ptr;
+
+        a_ptr = &a;
+        b_ptr = &b;
+        c_ptr = &c;
+
+        Get_Coefficients(a_ptr, b_ptr, c_ptr);
+
+        Calc_Root(a, b, c);
+
+        cout << "\nDo you want to run this program again? (Press y for yes, for no press any other key) ";
+        cin >> runProgramAgain;
+        cin.ignore(10, '\n');
+
+        // the tolower function returns an int representing the ascii value of the lowercased character so this value is casted back to
+        // a char to ensure accurate results
+        runProgramAgain = (char)tolower(runProgramAgain);
+
+    } while (runProgramAgain == 'y');
+
+    system("pause");
+
+    return 0;
+}
+
+void Get_Coefficients(float *a_ptr, float *b_ptr, float *c_ptr)
+{
+    cout << "\nQuadratic Equation Calculator.";
+    cout << "\nSyntax: ax2 + bx + c = 0";
+    cout << "\nPlease provide the values for a, b, and c";
+
+    float a, b, c;
+    // temporary variable for storing user input as a string before converting it to a float
+    char temp[15];
+
+    cout << "\na: ";
+    cin.getline(temp, 15);
+    a = atof(temp);
+    *a_ptr = a;
+
+    cout << "b: ";
+    cin.getline(temp, 15);
+    b = atof(temp);
+    *b_ptr = b;
+
+    cout << "c: ";
+    cin.getline(temp, 15);
+    c = atof(temp);
+    *c_ptr = c;
+}
+
+char Calc_Discriminant(float a, float b, float c)
+{
+    float discriminant = pow(b, 2) - (4 * a * c);
+
+    if (discriminant > 0.0)
+    {
+        // real and unequal roots
+        return 'r';
+    }
+    else if (discriminant < 0.0)
+    {
+        // complex roots
+        return 'i';
+    }
+    else
+    {
+        // real and equal roots
+        return 's';
+    }
+}
+
+void Calc_Root(float a, float b, float c)
+{
+    char discriminant_type = Calc_Discriminant(a, b, c);
+
+    float root1, root2;
+
+    if (discriminant_type == 'r')
+    {
+        root1 = (-b - sqrt(pow(b, 2) - (4 * a * c))) / (2 * a);
+        root2 = (-b + sqrt(pow(b, 2) - (4 * a * c))) / (2 * a);
+
+        cout << "root 1 = " << root1;
+        cout << "\nroot 2 = " << root2;
+    }
+    else if (discriminant_type == 'i')
+    {
+        float real_part, imaginary_part;
+
+        real_part = -b / (2 * a);
+        // the absolute value is taken as shown below so as to prevent errors arising from taken the root of a negative number
+        imaginary_part = sqrt(abs(pow(b, 2) - (4 * a * c))) / (2 * a);
+
+        // this
+        // cout << "root 1 = " << real_part << " + " << imaginary_part << "i";
+        // cout << "\nroot 2 = " << real_part << " - " << imaginary_part << "i";
+
+        // or that
+        complex<float> root(real_part, imaginary_part);
+
+        cout << "root 1 = " << root.real() << " + " << root.imag() << "i";
+        cout << "\nroot 2 = " << root.real() << " - " << root.imag() << "i";
+    }
+    else if (discriminant_type == 's')
+    {
+        root1 = (-b - sqrt(pow(b, 2) - (4 * a * c))) / (2 * a);
+
+        cout << "root 1 = " << root1;
+        cout << "\nroot 2 = " << root1;
+    }
+    else
+    {
+        cout << "Invalid discriminant." << endl;
+    }
+}
+
+// Old version
+/*
 
 void Get_Coefficients(double *a_ptr, double *b_ptr, double *c_ptr);
 
@@ -136,3 +272,4 @@ void Calc_Root(double discriminant, char discriminant_type, double a, double b)
         cout << "Invalid discriminant." << endl;
     }
 };
+*/
