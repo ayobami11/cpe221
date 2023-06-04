@@ -52,6 +52,7 @@ void Get_Coefficients(float *a_ptr, float *b_ptr, float *c_ptr)
     cout << "\nPlease provide the values for a, b, and c";
 
     float a, b, c;
+
     // temporary variable for storing user input as a string before converting it to a float
     char temp[15];
 
@@ -115,14 +116,14 @@ void Calc_Root(float a, float b, float c)
         imaginary_part = sqrt(abs(pow(b, 2) - (4 * a * c))) / (2 * a);
 
         // this
-        // cout << "root 1 = " << real_part << " + " << imaginary_part << "i";
-        // cout << "\nroot 2 = " << real_part << " - " << imaginary_part << "i";
+        cout << "root 1 = " << real_part << " + " << imaginary_part << "i";
+        cout << "\nroot 2 = " << real_part << " - " << imaginary_part << "i";
 
         // or that
-        complex<float> root(real_part, imaginary_part);
+        // complex<float> root(real_part, imaginary_part);
 
-        cout << "root 1 = " << root.real() << " + " << root.imag() << "i";
-        cout << "\nroot 2 = " << root.real() << " - " << root.imag() << "i";
+        // cout << "root 1 = " << root.real() << " + " << root.imag() << "i";
+        // cout << "\nroot 2 = " << root.real() << " - " << root.imag() << "i";
     }
     else if (discriminant_type == 's')
     {
